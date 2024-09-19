@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  let currentUser;
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <header className="bg-white shadow-md relative z-50">
       <div className="flex justify-between items-cente pr-4 w-max-w-4xl  lg:max-w-6xl mx-auto p-3">
@@ -23,9 +24,19 @@ const Header = () => {
               About
             </li>
           </Link>
-          <Link to="/register">
-            <li className="text-slate-700 hover:underline"> Sign in</li>
-          </Link>
+          {currentUser ? (
+            <Link to="/profile">
+              <img
+                className="rounded-full h-7 w-7 object-cover"
+                src={currentUser.avatar}
+                alt={currentUser.username}
+              />
+            </Link>
+          ) : (
+            <Link to="/register">
+              <li className="text-slate-700 hover:underline"> Sign in</li>
+            </Link>
+          )}
         </ul>
       </div>
     </header>

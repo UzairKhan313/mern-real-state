@@ -8,7 +8,7 @@ import {
   ProfilePage,
   RegisterPage,
 } from "./pages";
-import { Header } from "./components";
+import { Header, PrivateRoutes } from "./components";
 
 function App() {
   return (
@@ -19,7 +19,9 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

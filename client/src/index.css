@@ -43,7 +43,7 @@
       --bg-soft: rgb(40, 40, 40);
       --border: rgb(75, 75, 75);
       --text: rgb(245, 245, 245);
-      --text-soft: rgb(211, 211, 211);
+      --success: rgb(6, 146, 18);
       --primary: rgb(225, 33, 27);
       --secondary: rgb(196, 24, 18);
     }
