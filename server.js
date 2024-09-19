@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import authRouter from "./routes/auth-routes.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
+import morgan from "morgan";
 
 // Setting path to the dotenv file.
 dotenv.config();
@@ -14,7 +15,17 @@ const port = process.env.PORT || 4000;
 
 app.use(express.json());
 
+// For diplay the route and request information..
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
 app.use("/api/v1/auth", authRouter);
+
+// Not found Routes Error.
+app.use("*", (req, res) => {
+  res.status(404).json({ msg: "not found" });
+});
 
 //Error Handler Middlewar.
 app.use(errorHandlerMiddleware);

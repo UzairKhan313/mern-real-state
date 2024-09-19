@@ -16,7 +16,7 @@ export default {
     },
     colors: {
       bgColor: "var(--bg)",
-      "bgColor-soft": "var(--bg-soft)",
+      // "bgColor-soft": "var(--bg-soft)",
       borderColor: "var(--border)",
       textColor: "var(--text)",
       "textColor-soft": "var(--text-soft)",
