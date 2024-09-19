@@ -2,10 +2,12 @@ import "express-async-errors";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 import authRouter from "./routes/auth-routes.js";
+import userRouter from "./routes/user-routes.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
-import morgan from "morgan";
 
 // Setting path to the dotenv file.
 dotenv.config();
@@ -14,6 +16,8 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
+// Cookie parser.
+app.use(cookieParser());
 
 // For diplay the route and request information..
 if (process.env.NODE_ENV === "development") {
@@ -21,6 +25,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 // Not found Routes Error.
 app.use("*", (req, res) => {
