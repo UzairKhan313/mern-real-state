@@ -6,6 +6,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../features/user-slice";
+import GoogleAuth from "../components/GoogleAuth";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -68,6 +69,7 @@ const Login = () => {
         >
           {loading ? "Loading..." : "Login"}
         </button>
+        <GoogleAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>

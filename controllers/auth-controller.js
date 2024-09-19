@@ -52,7 +52,7 @@ export const google = async (req, res, next) => {
     const generatedPassword =
       Math.random().toString(36).slice(-8) +
       Math.random().toString(36).slice(-8);
-    const hashedPassword = hashPassword(generatedPassword);
+    const hashedPassword = await hashPassword(generatedPassword);
     const newUser = new User({
       username:
         req.body.name.split(" ").join("").toLowerCase() +
