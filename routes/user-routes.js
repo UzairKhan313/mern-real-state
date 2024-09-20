@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  //   deleteUser,
+  deleteUser,
   updateUser,
   //   getUserListings,
   //   getUser,
@@ -10,7 +10,7 @@ import { verifyToken } from "../middleware/verify-user.js";
 const router = express.Router();
 
 router.post("/update/:id", verifyToken, updateUser); //Update User
-// router.delete("/delete/:id", verifyToken, deleteUser); //Delete User
+router.delete("/delete/:id", verifyToken, deleteUser); //Delete User
 // router.get("/listings/:id", verifyToken, getUserListings); //User Listing
 // router.get("/:id", verifyToken, getUser); //Get User
 

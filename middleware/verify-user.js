@@ -6,7 +6,6 @@ import {
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
-  console.log(token);
 
   if (!token) throw new UnauthorizedError("Unauthorized");
 
