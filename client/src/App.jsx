@@ -1,14 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { Header, PrivateRoutes } from "./components";
 import {
   AboutPage,
+  CreateListingPage,
   HomePage,
   LoginPage,
   ProfilePage,
   RegisterPage,
 } from "./pages";
-import { Header, PrivateRoutes } from "./components";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/create-listing" element={<CreateListingPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

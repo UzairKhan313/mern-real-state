@@ -31,7 +31,7 @@ const Register = () => {
 
       if (data.success === false) {
         setLoading(false);
-        setError(data.message);
+        setError(data.msg);
         return;
       }
       setLoading(false);

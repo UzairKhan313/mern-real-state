@@ -2,12 +2,21 @@ import { StatusCodes } from "http-status-codes";
 
 import User from "../models/user-model.js";
 import { comparePassword, hashPassword } from "../utils/PasswordUtility.js";
-import { UnauthenticatedError } from "../errors/custom-error.js";
+import {
+  BadRequestError,
+  UnauthenticatedError,
+} from "../errors/custom-error.js";
 import { createJWT } from "../utils/tokenUtils.js";
 
 //Register
 export const register = async (req, res, next) => {
   const { username, email, password } = req.body;
+  const user = await User.findOne({ email: email });
+  if (user) {
+    throw new BadRequestError(
+      "Email Already reigster. Please pick another one."
+    );
+  }
   const hashedPassword = await hashPassword(password);
   const newUser = new User({ username, email, password: hashedPassword });
 
