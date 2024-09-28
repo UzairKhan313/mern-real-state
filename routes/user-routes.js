@@ -1,6 +1,7 @@
 import express from "express";
 import {
   deleteUser,
+  getUserListings,
   updateUser,
   //   getUserListings,
   //   getUser,
@@ -11,7 +12,7 @@ const router = express.Router();
 
 router.post("/update/:id", verifyToken, updateUser); //Update User
 router.delete("/delete/:id", verifyToken, deleteUser); //Delete User
-// router.get("/listings/:id", verifyToken, getUserListings); //User Listing
+router.get("/listings/:id", verifyToken, getUserListings); //User Listing
 // router.get("/:id", verifyToken, getUser); //Get User
 
 export default router;

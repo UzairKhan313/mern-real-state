@@ -78,6 +78,8 @@ export default function CreateListing() {
         },
         (error) => {
           reject(error);
+          // console.log(error);
+          // setImageUploadError("Faild to upload images");
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -145,7 +147,15 @@ export default function CreateListing() {
           userRef: currentUser._id,
         }),
       });
+
+      console.log(res);
+
+      if (!res.ok) {
+        throw new Error("Failed to create listing.");
+      }
       const data = await res.json();
+      console.log(data);
+
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
@@ -368,7 +378,7 @@ export default function CreateListing() {
           >
             {loading ? "Creating..." : "Create listing"}
           </button>
-          {error && <p className="text-red-700 text-sm">{error}</p>}
+          {error && <p className="text-primary text-sm">{error}</p>}
         </div>
       </form>
     </main>

@@ -2,6 +2,7 @@ import { hashPassword } from "../utils/PasswordUtility.js";
 import User from "../models/user-model.js";
 import { UnauthorizedError } from "../errors/custom-error.js";
 import { StatusCodes } from "http-status-codes";
+import Listing from "../models/listing-model.js";
 
 //Update User
 export const updateUser = async (req, res, next) => {
@@ -39,19 +40,16 @@ export const deleteUser = async (req, res, next) => {
   res.status(StatusCodes.OK).json({ msg: "User has been deleted!" });
 };
 
-//Get User Listing
-// export const getUserListings = async (req, res, next) => {
-//   if (req.user.id === req.params.id) {
-//     try {
-//       const listings = await Listing.find({ userRef: req.params.id });
-//       res.status(200).json(listings);
-//     } catch (error) {
-//       next(error);
-//     }
-//   } else {
-//     return next(errorHandler(401, "You can only view your own listings!"));
-//   }
-// };
+// Get User Listing
+export const getUserListings = async (req, res, next) => {
+  if (req.user.id === req.params.id) {
+    const listings = await Listing.find({ userRef: req.params.id });
+    res.status(StatusCodes.OK).json(listings);
+  } else {
+    throw new UnauthorizedError(401, "You can only view your own listings!");
+  }
+};
+
 // Get User
 // export const getUser = async (req, res, next) => {
 //   try {

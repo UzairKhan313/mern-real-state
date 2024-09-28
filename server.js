@@ -7,6 +7,7 @@ import morgan from "morgan";
 
 import authRouter from "./routes/auth-routes.js";
 import userRouter from "./routes/user-routes.js";
+import listingRouter from "./routes/listing-routes.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 // Setting path to the dotenv file.
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/listing", listingRouter);
 
 // Not found Routes Error.
 app.use("*", (req, res) => {
