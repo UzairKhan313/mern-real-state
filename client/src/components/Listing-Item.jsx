@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ListingItem = ({ listing }) => {
+const ListingItem = ({ listing, onDelete }) => {
   return (
     <div
       key={listing._id}
@@ -23,7 +23,7 @@ const ListingItem = ({ listing }) => {
 
       <div className="flex flex-col item-center">
         <button
-          onClick={() => handleListingDelete(listing._id)}
+          onClick={() => onDelete(listing._id)}
           className="text-secondary uppercase"
         >
           Delete

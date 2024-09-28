@@ -18,6 +18,7 @@ import {
   deleteUserStart,
 } from "../features/user-slice";
 import ListingItem from "../components/Listing-Item";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const fileRef = useRef(null);
@@ -31,7 +32,6 @@ const Profile = () => {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
-  const handleListingDelete = async () => {};
   const handleSignOut = async () => {};
 
   const handleChange = (e) => {
@@ -130,6 +130,32 @@ const Profile = () => {
         );
       }
     );
+  };
+
+  /* Handle Listing Delete */
+  const handleListingDelete = async (listingId) => {
+    if (window.alert) {
+      try {
+        const res = await fetch(`/api/listing/delete/${listingId}`, {
+          method: "DELETE",
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          toast.error(data.msg);
+          return;
+        }
+
+        setUserListings((prev) =>
+          prev.filter((listing) => listing._id !== listingId)
+        );
+        toast.success(data.msg);
+      } catch (error) {
+        console.log(error?.message || error?.msg);
+        toast.error(
+          error?.message || error?.msg || "Failed to delete Listing."
+        );
+      }
+    }
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -230,7 +256,11 @@ const Profile = () => {
             Your Listings
           </h1>
           {userListings.map((listing) => (
-            <ListingItem listing={{ ...listing }} />
+            <ListingItem
+              key={listing._id}
+              listing={{ ...listing }}
+              onDelete={handleListingDelete}
+            />
           ))}
         </div>
       )}

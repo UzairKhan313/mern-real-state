@@ -49,8 +49,9 @@ export const getListing = async (req, res, next) => {
   if (!listing) {
     throw new NotFoundError("Listing not found!");
   }
-  res.status(200).json(listing);
+  res.status(StatusCodes.OK).json(listing);
 };
+
 //Search Functionality
 export const getListings = async (req, res, next) => {
   const limit = parseInt(req.query.limit) || 9;
