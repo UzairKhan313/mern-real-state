@@ -20,7 +20,7 @@ import {
   deleteUserStart,
   signOutUserStart,
 } from "../features/user-slice";
-import ListingItem from "../components/Listing-Item";
+import ListingItem from "../components/User-Listing-Item";
 
 const Profile = () => {
   const fileRef = useRef(null);
