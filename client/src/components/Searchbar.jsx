@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Searchbar = ({ onWelcome }) => {
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
   return (
     <form
       className="lg:w-1/2 w-full lg:min-w-[400px] md:min-w-[300px] rounded-xl flex items-center text-xl text-black"
@@ -17,7 +36,7 @@ const Searchbar = ({ onWelcome }) => {
         }`}
         placeholder="Search for a location or listing title..."
         type="text"
-        onChange={handleChange}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <button
         className={`p-3 rounded-r-xl hover:opacity-80 transition-opacity duration-200 ${

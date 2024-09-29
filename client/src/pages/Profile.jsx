@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   getDownloadURL,
@@ -8,6 +9,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+
 import { app } from "../firebase";
 import {
   updateUserStart,
@@ -16,9 +18,9 @@ import {
   deleteUserFailure,
   deleteUserSuccess,
   deleteUserStart,
+  signOutUserStart,
 } from "../features/user-slice";
 import ListingItem from "../components/Listing-Item";
-import { toast } from "react-toastify";
 
 const Profile = () => {
   const fileRef = useRef(null);
@@ -32,7 +34,21 @@ const Profile = () => {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
-  const handleSignOut = async () => {};
+  //Sign-Out
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

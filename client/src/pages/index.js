@@ -5,4 +5,5 @@ export { default as ProfilePage } from "./Profile";
 export { default as AboutPage } from "./About";
 export { default as CreateListingPage } from "./CreateListing";
 export { default as UpdateListing } from "./Update-Listing";
-export { default as Listing } from "./Listing";
+export { default as ListingPage } from "./Listing";
+export { default as AllListingPage } from "./All-Listing";

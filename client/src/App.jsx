@@ -7,9 +7,10 @@ import { Header, PrivateRoutes } from "./components";
 
 import {
   AboutPage,
+  AllListingPage,
   CreateListingPage,
   HomePage,
-  Listing,
+  ListingPage,
   LoginPage,
   ProfilePage,
   RegisterPage,
@@ -26,7 +27,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/listing/:listingId" element={<Listing />} />
+        <Route path="/search" element={<AllListingPage />} />
+        <Route path="/listing/:listingId" element={<ListingPage />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/create-listing" element={<CreateListingPage />} />

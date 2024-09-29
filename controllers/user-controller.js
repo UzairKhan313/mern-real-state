@@ -1,6 +1,6 @@
 import { hashPassword } from "../utils/PasswordUtility.js";
 import User from "../models/user-model.js";
-import { UnauthorizedError } from "../errors/custom-error.js";
+import { NotFoundError, UnauthorizedError } from "../errors/custom-error.js";
 import { StatusCodes } from "http-status-codes";
 import Listing from "../models/listing-model.js";
 
@@ -51,16 +51,12 @@ export const getUserListings = async (req, res, next) => {
 };
 
 // Get User
-// export const getUser = async (req, res, next) => {
-//   try {
-//     const user = await User.findById(req.params.id);
+export const getUser = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
 
-//     if (!user) return next(errorHandler(404, "User not found!"));
+  if (!user) throw new NotFoundError(404, "User not found!");
 
-//     const { password: pass, ...rest } = user._doc;
+  const { password: pass, ...rest } = user._doc;
 
-//     res.status(200).json(rest);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+  res.status(StatusCodes.OK).json(rest);
+};
